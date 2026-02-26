@@ -4,7 +4,7 @@
 
 <h1 align="center">Nudge</h1>
 
-<p align="center">Recurring reminders with custom intervals, jitter, and sound.</p>
+<p align="center">A Chrome extension for recurring reminders with custom intervals, jitter, and sound.</p>
 
 <p align="center">Chrome · Manifest V3</p>
 <p align="center"><a href="#install"><strong>Install Nudge</strong></a></p>
