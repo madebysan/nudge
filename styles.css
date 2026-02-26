@@ -8,7 +8,7 @@
 body {
   width: 360px;
   padding: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: #f8f9fa;
   color: #1a1a1a;
 }
@@ -44,7 +44,7 @@ h2 {
 .notification-item {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 12px;
   margin-bottom: 8px;
   transition: box-shadow 0.15s ease;
@@ -137,7 +137,7 @@ button {
   font-size: 13px;
   font-weight: 500;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -148,14 +148,13 @@ button:active {
 }
 
 .btn-primary {
-  background: #2563eb;
+  background: #f59e0b;
   color: white;
-  width: 100%;
   padding: 10px 16px;
 }
 
 .btn-primary:hover {
-  background: #1d4ed8;
+  background: #d97706;
 }
 
 .btn-secondary {
@@ -185,7 +184,7 @@ button:active {
 #notificationForm {
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
 }
@@ -212,15 +211,15 @@ button:active {
   padding: 10px 12px;
   font-size: 14px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 12px;
   font-family: inherit;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 /* Interval row with jitter */
@@ -261,7 +260,8 @@ button:active {
 .checkbox-row input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #2563eb;
+  accent-color: #f59e0b;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -280,5 +280,58 @@ button:active {
 
 .form-buttons button {
   flex: 1;
+}
+
+/* Delete button inside edit form */
+.btn-delete-form {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  background: none;
+  color: #9ca3af;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete-form:hover {
+  color: #dc2626;
+}
+
+/* Bottom bar */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.bottom-bar .about-link {
+  font-size: 12px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.bottom-bar .about-link:hover {
+  color: #6b7280;
+  text-decoration: underline;
+}
+
+.btn-add {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: white;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-add:hover {
+  background: #d97706;
 }
 

@@ -5,7 +5,7 @@ function renderNotifications() {
   listElement.innerHTML = '';
 
   if (notifications.length === 0) {
-    listElement.innerHTML = '<div class="empty-state">No reminders yet.<br>Add one to get started.</div>';
+    listElement.innerHTML = '<div class="empty-state">No nudges yet.<br>Add a recurring reminder to get started.</div>';
     return;
   }
 
@@ -23,7 +23,6 @@ function renderNotifications() {
       </div>
       <div class="notification-controls">
         <button class="btn-small btn-secondary edit-btn" data-id="${notification.id}">Edit</button>
-        <button class="btn-small btn-danger delete-btn" data-id="${notification.id}">Delete</button>
         <label class="toggle-label">
           <span>${notification.active ? 'On' : 'Off'}</span>
           <input type="checkbox" class="toggle-btn" data-id="${notification.id}" ${notification.active ? 'checked' : ''}>
@@ -61,22 +60,25 @@ function showForm(notification = null) {
   const settingsForm = document.getElementById('settingsForm');
   const formTitle = document.getElementById('formTitle');
   const addButton = document.getElementById('addNotification');
+  const deleteBtn = document.getElementById('deleteFromEdit');
 
   form.style.display = 'block';
-  addButton.style.display = 'none';
+  document.querySelector('.bottom-bar').style.display = 'none';
 
   if (notification) {
-    formTitle.textContent = 'Edit Reminder';
+    formTitle.textContent = 'Edit Nudge';
     document.getElementById('notificationId').value = notification.id;
     document.getElementById('notificationText').value = notification.text;
     document.getElementById('notificationInterval').value = notification.interval;
     document.getElementById('notificationJitter').value = notification.jitter || 0;
     document.getElementById('notificationSound').checked = notification.sound;
+    deleteBtn.style.display = 'block';
   } else {
-    formTitle.textContent = 'New Reminder';
+    formTitle.textContent = 'New Nudge';
     settingsForm.reset();
     document.getElementById('notificationId').value = '';
     document.getElementById('notificationJitter').value = 0;
+    deleteBtn.style.display = 'none';
   }
 
   document.getElementById('notificationText').focus();
@@ -84,7 +86,7 @@ function showForm(notification = null) {
 
 function hideForm() {
   document.getElementById('notificationForm').style.display = 'none';
-  document.getElementById('addNotification').style.display = 'block';
+  document.querySelector('.bottom-bar').style.display = 'flex';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -92,15 +94,45 @@ document.addEventListener('DOMContentLoaded', function() {
   const settingsForm = document.getElementById('settingsForm');
   const cancelButton = document.getElementById('cancelEdit');
 
-  // Load saved notifications
+  // Load saved notifications, seed examples for new users
   chrome.storage.sync.get('notifications', function(result) {
     notifications = result.notifications || [];
-    renderNotifications();
+
+    if (notifications.length === 0) {
+      chrome.storage.local.get('seeded', function(seedResult) {
+        if (!seedResult.seeded) {
+          notifications = [
+            { id: 'seed-1', text: 'Drink water', interval: 30, jitter: 5, sound: false, active: false },
+            { id: 'seed-2', text: 'Stand up and stretch', interval: 45, jitter: 10, sound: true, active: false },
+            { id: 'seed-3', text: 'Check posture', interval: 20, jitter: 0, sound: false, active: false }
+          ];
+          chrome.storage.sync.set({ notifications });
+          chrome.storage.local.set({ seeded: true });
+        }
+        renderNotifications();
+      });
+    } else {
+      renderNotifications();
+    }
   });
 
   addButton.addEventListener('click', () => showForm());
 
   cancelButton.addEventListener('click', hideForm);
+
+  document.getElementById('deleteFromEdit').addEventListener('click', function() {
+    const id = document.getElementById('notificationId').value;
+    if (!id) return;
+    const notification = notifications.find(n => n.id === id);
+    const name = notification ? notification.text : 'this nudge';
+    if (!confirm(`Delete "${name}"?`)) return;
+    notifications = notifications.filter(n => n.id !== id);
+    chrome.storage.sync.set({ notifications }, function() {
+      renderNotifications();
+      hideForm();
+      chrome.runtime.sendMessage({ action: 'updateAlarms' });
+    });
+  });
 
   settingsForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -140,17 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const id = e.target.getAttribute('data-id');
       const notification = notifications.find(n => n.id === id);
       showForm(notification);
-    } else if (e.target.classList.contains('delete-btn')) {
-      const id = e.target.getAttribute('data-id');
-      notifications = notifications.filter(n => n.id !== id);
-      chrome.storage.sync.set({ notifications }, function() {
-        if (chrome.runtime.lastError) {
-          console.error('Failed to delete reminder:', chrome.runtime.lastError.message);
-          return;
-        }
-        renderNotifications();
-        chrome.runtime.sendMessage({ action: 'updateAlarms' });
-      });
     }
   });
 

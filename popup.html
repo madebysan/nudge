@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Nudge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <h1>Reminders</h1>
-
   <div id="notificationList"></div>
 
-  <button id="addNotification" class="btn-primary">+ Add Reminder</button>
+  <div class="bottom-bar">
+    <a href="https://github.com/madebysan/nudge" target="_blank" class="about-link">About Nudge</a>
+    <button id="addNotification" class="btn-add" title="Add Nudge">+</button>
+  </div>
 
   <div id="notificationForm" style="display: none;">
     <h2 id="formTitle">New Reminder</h2>
@@ -51,6 +55,7 @@
         <button type="button" id="cancelEdit" class="btn-secondary">Cancel</button>
         <button type="submit" class="btn-primary">Save</button>
       </div>
+      <button type="button" id="deleteFromEdit" class="btn-delete-form" style="display: none;">Delete this nudge</button>
     </form>
   </div>
 

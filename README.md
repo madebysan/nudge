@@ -9,9 +9,9 @@
 <p align="center">Chrome · Manifest V3</p>
 <p align="center"><a href="#install"><strong>Install Nudge</strong></a></p>
 
-<!-- <p align="center">
-  <img src="screenshots/hero.png" width="600" alt="Nudge — recurring reminders popup">
-</p> -->
+<p align="center">
+  <img src="screenshots/hero.png" width="600" alt="Nudge — recurring reminders with custom intervals and jitter">
+</p>
 
 ## Install
 
