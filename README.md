@@ -44,7 +44,7 @@ nudge/
   popup.html         Popup UI
   popup.js           Popup logic (CRUD, toggle, form)
   styles.css         Popup styles
-  icons/             Extension icons (16, 48, 128px)
+  icons/             Extension icons (16, 32, 48, 128px)
 ```
 
 ## Privacy
