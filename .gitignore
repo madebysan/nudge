@@ -1,0 +1,11 @@
+.DS_Store
+*.zip
+plan.md
+
+# Dev artifacts
+create_icon.py
+icon_base64.txt
+icon.svg
+icon.png
+icon-16.png
+icon-48.png

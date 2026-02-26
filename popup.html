@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Nudge</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <h1>Reminders</h1>
+
+  <div id="notificationList"></div>
+
+  <button id="addNotification" class="btn-primary">+ Add Reminder</button>
+
+  <div id="notificationForm" style="display: none;">
+    <h2 id="formTitle">New Reminder</h2>
+    <form id="settingsForm">
+      <input type="hidden" id="notificationId">
+
+      <div class="form-group">
+        <label for="notificationText">Message</label>
+        <input type="text" id="notificationText" placeholder="What do you want to remember?" required>
+      </div>
+
+      <div class="interval-row">
+        <div class="form-group">
+          <label for="notificationInterval">Every</label>
+          <div class="input-with-unit">
+            <input type="number" id="notificationInterval" min="0.1" step="0.1" placeholder="15" required>
+            <span class="unit">min</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notificationJitter">± Jitter</label>
+          <div class="input-with-unit">
+            <input type="number" id="notificationJitter" min="0" step="0.5" placeholder="0" value="0">
+            <span class="unit">min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox-row">
+          <input type="checkbox" id="notificationSound">
+          <label for="notificationSound">Play sound</label>
+        </div>
+      </div>
+
+      <div class="form-buttons">
+        <button type="button" id="cancelEdit" class="btn-secondary">Cancel</button>
+        <button type="submit" class="btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
